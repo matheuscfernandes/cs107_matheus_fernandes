@@ -35,7 +35,7 @@ def numbers(type,N):
         print("Type not programmed in! Please check the series in question.")
 
 #INITIALIZING THE DIFFERENT LISTS
-plist=[*range(15,501)]
+plist=[*range(15,1001)]
 glist=[*range(3,11)]
 
 #COMPUTING THE CORRESPONDING PIES FOR THE LIST
@@ -48,3 +48,36 @@ goldens=[]
 for j in glist:
     goldens.append(numbers('goldenratio',j))
 
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+# PLOTTING FIGURE FOR PI SEQUENCE
+plt.figure()
+
+plt.axhline(np.pi,c='k',ls='--',label=r'True $\pi$')
+plt.plot(plist,pies,'o',label=r'Series Approximation')
+
+plt.title(r'Pi Series approximation compared to True Value')
+plt.xlabel(r'Approximate $\pi$')
+plt.ylabel(r'Number of terms')
+
+plt.legend()
+plt.savefig('PiEstimation.png',dpi=300)
+
+#COMPUTING TRUE GOLDEN RATIO
+truefib=(1./2.)*(1+np.sqrt(5))
+
+
+# PLOTTING FIGURE FOR GOLDEN MEAN SEQUENCE
+plt.figure()
+
+plt.axhline(truefib,c='k',ls='--',label=r'True $\varphi$')
+plt.plot(glist,goldens,'o',label=r'Series Approximation')
+
+plt.title(r'Golden Ratio Series approximation compared to True Value')
+plt.xlabel(r'Approximate $\varphi$')
+plt.ylabel(r'Number of terms')
+
+plt.legend()
+plt.savefig('GoldenEstimation.png',dpi=300)
