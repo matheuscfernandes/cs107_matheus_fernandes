@@ -1,5 +1,8 @@
-# Playground
+# AC207 Directory
 
-A place to play with `git`.
+## Content
 
-### Fall 2020
+* Lectures : this forlder contains all the lecture files
+* Homeworks : this forlder contains all of the homework files
+* Pair_programing: this folder contais all of the pair_programing exercise files
+
