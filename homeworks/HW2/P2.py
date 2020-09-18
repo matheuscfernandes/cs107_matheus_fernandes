@@ -1,5 +1,9 @@
 def dna_complement(dna):
+	if dna=='':
+		print('DNA string is empty')
+		return None
 	comp=''
+	dna=dna.upper()
 	for i in dna:
 		if i=='A':
 			comp=comp+'T'
@@ -11,10 +15,11 @@ def dna_complement(dna):
 			comp=comp+'G'
 		else:
 			print('{} is not a valit letter'.format(i))
-			break
+			return None
 	return comp
-
-inputdna='AATGGC'
+# inputdna='asdfa'
+inputdna=''
+# inputdna='AATGGC'
 print('Input DNA is: ',inputdna)
 complement=dna_complement(inputdna)
 print('Complement DNA is: ',complement)
