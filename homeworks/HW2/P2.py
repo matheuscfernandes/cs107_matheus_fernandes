@@ -18,8 +18,8 @@ def dna_complement(dna):
 			return None
 	return comp
 # inputdna='asdfa'
-inputdna=''
-# inputdna='AATGGC'
+# inputdna=''
+inputdna='AATGGC'
 print('Input DNA is: ',inputdna)
 complement=dna_complement(inputdna)
 print('Complement DNA is: ',complement)
