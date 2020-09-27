@@ -26,4 +26,3 @@ wd(30)
 #checking for basic exceptions
 wd(150)
 wd(-50)
-

@@ -17,4 +17,3 @@ wd=bank(100)
 wd(50)
 #withdraw 30 from the new current balance
 wd(30)
-
