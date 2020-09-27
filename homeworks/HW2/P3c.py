@@ -15,3 +15,7 @@ wd=bank(100)
 wd(50)
 #withdraw 30 from the new current balance
 wd(30)
+
+#checking for basic exceptions
+wd(150)
+wd(-50)
