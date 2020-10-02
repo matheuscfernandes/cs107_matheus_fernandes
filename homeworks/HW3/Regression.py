@@ -1,3 +1,5 @@
+import numpy as np
+
 class Regression():
 
     def __init__(self):
@@ -37,10 +39,30 @@ class LinearRegression(Regression):
         beta = np.dot(np.linalg.pinv(np.dot(X.T,X)),np.dot(X.T,y))
         self.params['beta']=beta
     
-    # def predict(self,X):
-
+    def predict(self,X):
+        #converting incomind data into nuumpy arrays
+        X=np.array(X)
+        #add a column of ones for the bias
+        X = np.hstack((np.ones([X.shape[0],1]), X))
+        #predicting based on the inputs and betas from previous fit
+        y_hat = np.dot(X,self.params['beta'])
+        return y_hat
+    
+    def score(self, X, y):
+        #computing sst equation for r2
+        sst=np.sum((y-np.mean(y))**2)
+        #obtaning predictions from model
+        y_hat=self.predict(X)
+        #computing sse equation for r2
+        sse=np.sum((y-y_hat)**2)
+        #computing r2
+        r2=1-sse/sst
+        return r2
 
 
 
 test=LinearRegression()
 test.set_params(beta=[1,2,3],alpha=[1,1])
+
+test.fit([0,1,2,3,4],[0,1,2,3,4])
+test.score([0,1,2,3,4],[0,1,2,3,4])
