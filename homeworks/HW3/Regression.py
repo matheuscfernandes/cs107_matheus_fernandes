@@ -67,8 +67,8 @@ class RidgeRegression(LinearRegression):
         print (self.params)
 
     def fit(self,X,y):
-        gamma = self.params['alpha']*np.identity()
-        beta = np.dot(np.linalg.pinv(np.dot(X.T,X)),np.dot(X.T,y))
+        gamma = self.params['alpha']*np.identity(len(X))
+        beta = np.dot(np.linalg.pinv(np.dot(X.T,X)+np.dot(gamma.T,gamma)),np.dot(X.T,y))
 
 
 test=LinearRegression()
