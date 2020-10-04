@@ -80,11 +80,11 @@ class RidgeRegression(LinearRegression):
 
 
 
-test=LinearRegression()
-test.set_params(beta=[1,2,3])
+# test=LinearRegression()
+# test.set_params(beta=[1,2,3])
 
-test.fit([0,1,2,3,4],[0,1,2,3,4])
-test.score([0,1,2,3,4],[0,1,2,3,4])
+# test.fit([0,1,2,3,4],[0,1,2,3,4])
+# test.score([0,1,2,3,4],[0,1,2,3,4])
 
-test=RidgeRegression()
-test.set_params(beta=[1,2,3])
+# test=RidgeRegression()
+# test.set_params(beta=[1,2,3])
