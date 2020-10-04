@@ -21,10 +21,9 @@ class Regression():
         raise NotImplementedError
 
 class LinearRegression(Regression):
-
     def set_params(self, **kwargs):
         #assert to make sure the parameters exist in this implementation
-        assert all([x in ['beta','alpha'] for x in kwargs.keys()]), 'argument not implemented'
+        assert all([x in ['beta'] for x in kwargs.keys()]), 'argument not implemented'
         #set the params variable to the dictionary passed in 
         self.params=kwargs
         print (self.params)
@@ -59,10 +58,24 @@ class LinearRegression(Regression):
         r2=1-sse/sst
         return r2
 
+class RidgeRegression(LinearRegression):
+    def set_params(self, **kwargs):
+        #assert to make sure the parameters exist in this implementation
+        assert all([x in ['beta','alpha'] for x in kwargs.keys()]), 'argument not implemented'
+        #set the params variable to the dictionary passed in 
+        self.params=kwargs
+        print (self.params)
+
+    def fit(self,X,y):
+        gamma = self.params['alpha']*np.identity()
+        beta = np.dot(np.linalg.pinv(np.dot(X.T,X)),np.dot(X.T,y))
 
 
 test=LinearRegression()
-test.set_params(beta=[1,2,3],alpha=[1,1])
+test.set_params(beta=[1,2,3])
 
 test.fit([0,1,2,3,4],[0,1,2,3,4])
 test.score([0,1,2,3,4],[0,1,2,3,4])
+
+test=RidgeRegression()
+test.set_params(beta=[1,2,3])
