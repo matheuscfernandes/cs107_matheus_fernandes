@@ -67,8 +67,17 @@ class RidgeRegression(LinearRegression):
         print (self.params)
 
     def fit(self,X,y):
+        #converting incomind data into nuumpy arrays
+        X=np.array(X)
+        y=np.array(y)
+        #add a column of ones for the bias
+        X = np.hstack((np.ones([X.shape[0],1]), X))
+        #initializing gamma
         gamma = self.params['alpha']*np.identity(len(X))
+        #solving for beta
         beta = np.dot(np.linalg.pinv(np.dot(X.T,X)+np.dot(gamma.T,gamma)),np.dot(X.T,y))
+        self.params['beta']=beta
+
 
 
 test=LinearRegression()
