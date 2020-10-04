@@ -1,23 +1,25 @@
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
-from Regression import LinearRegression,RidgeRegression 
+import Regression as reg
 
-dataset = datasets.load_diabetes()
+dataset = datasets.load_boston()
 X_train, X_test, y_train, y_test = train_test_split(dataset['data'], 
                                                     dataset['target'], 
                                                     test_size=0.2, 
                                                     random_state=42)
 
 alpha = 0.1
-LRModel=LinearRegression()
-LRModel.set_params(beta=1)
+LRModel=reg.LinearRegression()
+LRModel.set_params()
 
-RRModel=RidgeRegression()
-RRModel.set_params(beta=1,alpha=alpha)
+RRModel=reg.RidgeRegression()
+RRModel.set_params(alpha=alpha)
 
 models = [LRModel,RRModel]
 
 err=[]
 for model in models:
     model.fit(X_train, y_train);
+    print(model.params['beta'])
     err.append(model.score(X_test,y_test))
+print(err)

@@ -26,7 +26,6 @@ class LinearRegression(Regression):
         assert all([x in ['beta'] for x in kwargs.keys()]), 'argument not implemented'
         #set the params variable to the dictionary passed in 
         self.params=kwargs
-        print (self.params)
 
     def fit(self,X,y):
         #converting incomind data into nuumpy arrays
@@ -64,7 +63,6 @@ class RidgeRegression(LinearRegression):
         assert all([x in ['beta','alpha'] for x in kwargs.keys()]), 'argument not implemented'
         #set the params variable to the dictionary passed in 
         self.params=kwargs
-        print (self.params)
 
     def fit(self,X,y):
         #converting incomind data into nuumpy arrays
@@ -73,18 +71,7 @@ class RidgeRegression(LinearRegression):
         #add a column of ones for the bias
         X = np.hstack((np.ones([X.shape[0],1]), X))
         #initializing gamma
-        gamma = self.params['alpha']*np.identity(len(X))
+        gamma = self.params['alpha']*np.identity(X.shape[1])
         #solving for beta
         beta = np.dot(np.linalg.pinv(np.dot(X.T,X)+np.dot(gamma.T,gamma)),np.dot(X.T,y))
         self.params['beta']=beta
-
-
-
-# test=LinearRegression()
-# test.set_params(beta=[1,2,3])
-
-# test.fit([0,1,2,3,4],[0,1,2,3,4])
-# test.score([0,1,2,3,4],[0,1,2,3,4])
-
-# test=RidgeRegression()
-# test.set_params(beta=[1,2,3])
