@@ -59,23 +59,33 @@ class BankUser():
     def getBalance(self, accountType):
         #check if account esists, if so return the balance and if not raise and expetion
         try:
-            return len(self.acct[accountType])
+            self.acct[accountType]
         except:
             raise Exception('Account {} for {} does not exists'.format(accountType.name,self.owner))
         
+        #return balance of particular account
+        return len(self.acct[accountType])
+        
     def deposit(self, accountType, amount):
-        #ty to see if account exists, if so update balancem, if not raise an exception error
+        #try to see if account exists, if so update balancem, if not raise an exception error
         try:
-            self.acct[accountType].deposit(amount)
+            self.acct[accountType]
         except:
             raise Exception('Account {} for {} does not exists'.format(accountType.name,self.owner))
+        
+        #update the account with the amount deposited
+        self.acct[accountType].deposit(amount)
+
 
     def withdraw(self, accountType, amount):
-        #ty to see if account exists, if so update balancem, if not raise an exception error
+        #try to see if account exists, if so update balancem, if not raise an exception error
         try:
-            self.acct[accountType].withdraw(amount)
+            self.acct[accountType]
         except:
             raise Exception('Account {} for {} does not exists'.format(accountType.name,self.owner))
+        
+        #update the account with the amount deposited
+        self.acct[accountType].withdraw(amount)
 
 
     def __str__(self):
@@ -85,27 +95,43 @@ class BankUser():
             vals+='Account type: {} -- Balance: {} \n'.format(i.name,len(self.acct[i]))
         return vals
 
-def ATMSession(bankUser):
+
+def ATMSession(bu):
 
     def Interface():
-        nonlocal bankUser
+        #make sure that the bu varaible is nonlocal and amendable in this closure
+        nonlocal bu
 
+        #prompt user for the option they want
         print('Enter Option: \n')
         print('1)Exit\n')
         print('2)Create Account\n')
         print('3)Check Balance\n')
         print('4)Deposit\n')
         print('5)Withdraw \n')
-        op1 = input('')
+        opt1 = input('')
+        #make sure the selection is valid
+        while(opt1 not in ['1','2','3','4','5']):
+            print('This selection is invalid, try again.')
+            print('Enter Option: \n')
+            print('1)Exit\n')
+            print('2)Create Account\n')
+            print('3)Check Balance\n')
+            print('4)Deposit\n')
+            print('5)Withdraw \n')
+            opt1 = input('')
 
-        if op1 == '1':
+        #if exit selection, make sure to exit
+        if opt1 == '1':
             return 
-
+        
+        #if not exit, query the user for which account type they want to try next
         print('Enter Option: \n')
         print('1)Checking\n')
         print('2)Saving\n')
         opt2 = input('')
 
+        #make sure the selection is valid
         while(opt2 not in ['1','2']):
             print('This account type is invalid, try again.')
             print('Enter Option: \n')
@@ -113,15 +139,54 @@ def ATMSession(bankUser):
             print('2)Saving\n')
             opt2 = input('')
 
+        #store the account type in internal variable based on selection
         if opt2 == '1':
             at=AccountType.CHECKING
         else:
             at=AccountType.SAVINGS
+
+
+        #if creating an account, create an account
+        if opt1 == '2':
+            try:
+                bu.addAccount(at)
+            except:
+                print('Account already exists!')
+        bu.getBalance(at)
+
+        try:
+            #check if account exists
+            bu.getBalance(at)
+            #if checking balance, provide balance
+            if opt1 =='3':
+                try:
+                    print('Owner: {} \nAccount: {}\nBalance: {}'.format(at.owner,at.name,bu.getBalance(at)))
+                except:
+                    print('Account does not exist!')
+            
+            #if making a deposit or withdawal, query user for the amount
+            if opt1 in ['4','5']:
+                while True:
+                    opt3 = input('Enter a non-negative amount: ')
+                    #see if the amount is valid for the user
+                    try:
+                        if opt1 =='4':
+                            bu.deposit(at,opt3)
+                        elif opt1 =='5':
+                            bu.withdraw(at,opt3)
+                        break
+                    #if amount is not valid for the user, let them know and let them try again
+                    except:
+                        print('Invalid amount,try again')
+        #if account does not exist flag user
+        except:
+                print('Account does not exist')
+
+        Interface()
+
     return Interface
 
         
-
-
 
 user=BankUser('Matheus')
 sess=ATMSession(user)
