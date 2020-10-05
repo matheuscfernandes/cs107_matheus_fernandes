@@ -21,7 +21,7 @@ score=LRModel.score(X_test,y_test)
 
 RRModel=reg.RidgeRegression()
 
-for alpha in np.linspace(10**(-2),10,15):
+for alpha in 10**np.linspace(-2,1,15):
     RRModel.set_params(alpha=alpha)
     RRModel.fit(X_train, y_train);
     scoreRR.append([alpha,RRModel.score(X_test,y_test)])
@@ -30,8 +30,8 @@ for alpha in np.linspace(10**(-2),10,15):
 scoreRR=np.array(scoreRR)
 scoreLR=np.array(scoreLR)
 
-plt.plot(scoreRR[:,0],scoreRR[:,1],'o-',label='Ridge Regression')
-plt.plot(scoreLR[:,0],scoreLR[:,1],'o-',label='Linear Regression')
+plt.semilogx(scoreRR[:,0],scoreRR[:,1],'o-',label='Ridge Regression')
+plt.semilogx(scoreLR[:,0],scoreLR[:,1],'o-',label='Linear Regression')
 plt.xlabel(r'$\alpha$')
 plt.ylabel(r'$R^2$ score')
 plt.legend()
