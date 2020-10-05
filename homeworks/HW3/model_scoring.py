@@ -12,7 +12,6 @@ X_train, X_test, y_train, y_test = train_test_split(dataset['data'],
 alpha = 0.1
 #initialize LR model
 LRModel=reg.LinearRegression()
-LRModel.set_params()
 
 #initilizse the RR model
 RRModel=reg.RidgeRegression()

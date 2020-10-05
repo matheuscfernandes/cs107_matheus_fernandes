@@ -14,29 +14,6 @@ class Regression():
     def fit(self, X, y):
         raise NotImplementedError
 
-    def predict(self, X):
-        raise NotImplementedError
-
-    def score(self, X, y):
-        raise NotImplementedError
-
-class LinearRegression(Regression):
-    def set_params(self, **kwargs):
-        #assert to make sure the parameters exist in this implementation
-        assert all([x in ['beta'] for x in kwargs.keys()]), 'argument not implemented'
-        #set the params variable to the dictionary passed in 
-        self.params=kwargs
-
-    def fit(self,X,y):
-        #converting incomind data into nuumpy arrays
-        X=np.array(X)
-        y=np.array(y)
-        #add a column of ones for the bias
-        X = np.hstack((np.ones([X.shape[0],1]), X))
-        #solving for betas
-        beta = np.dot(np.linalg.pinv(np.dot(X.T,X)),np.dot(X.T,y))
-        self.params['beta']=beta
-    
     def predict(self,X):
         #converting incomind data into nuumpy arrays
         X=np.array(X)
@@ -57,10 +34,24 @@ class LinearRegression(Regression):
         r2=1-sse/sst
         return r2
 
+class LinearRegression(Regression):
+
+    def fit(self,X,y):
+        #converting incomind data into nuumpy arrays
+        X=np.array(X)
+        y=np.array(y)
+        #add a column of ones for the bias
+        X = np.hstack((np.ones([X.shape[0],1]), X))
+        #solving for betas
+        beta = np.dot(np.linalg.pinv(np.dot(X.T,X)),np.dot(X.T,y))
+        self.params['beta']=beta
+    
+
+
 class RidgeRegression(LinearRegression):
     def set_params(self, **kwargs):
         #assert to make sure the parameters exist in this implementation
-        assert all([x in ['beta','alpha'] for x in kwargs.keys()]), 'argument not implemented'
+        assert all([x in ['alpha'] for x in kwargs.keys()]), 'argument not implemented'
         #set the params variable to the dictionary passed in 
         self.params=kwargs
 

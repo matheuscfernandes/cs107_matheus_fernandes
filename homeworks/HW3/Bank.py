@@ -1,4 +1,5 @@
 from enum import Enum
+
 class AccountType(Enum):
     SAVINGS = 1
     CHECKING = 2
@@ -42,11 +43,10 @@ class BankAccount():
 
 
 class BankUser():
-
     #initialize the bank user class with the necessary information
     def __init__(self, owner):
         self.owner=owner
-        self.balance={}
+        self.acct={}
     
     def addAccount(self, accountType):
         try: # check if there is an existing bank account
@@ -54,56 +54,42 @@ class BankUser():
             raise Exception('Account: {} already exists'.format(accountType.name))
         #if account does not exist create one and set the balance to 0
         except:
-            self.balance[accountType] = 0
+            self.acct[accountType] = BankAccount(self.owner,accountType)
 
     def getBalance(self, accountType):
         #check if account esists, if so return the balance and if not raise and expetion
         try:
-            return self.balance[accountType]
+            return len(self.acct[accountType])
         except:
             raise Exception('Account {} for {} does not exists'.format(accountType.name,self.owner))
         
     def deposit(self, accountType, amount):
-        #check if the amount is greater than 0
-        if amount<0: raise Exception("Not a valid amount to deposit: amount < 0")
         #ty to see if account exists, if so update balancem, if not raise an exception error
         try:
-            self.balance[accountType]+=amount
+            self.acct[accountType].deposit(amount)
         except:
             raise Exception('Account {} for {} does not exists'.format(accountType.name,self.owner))
 
     def withdraw(self, accountType, amount):
-        #check of the amount is greater than 0
-        if amount<0: raise Exception("Not a valid amount to withdrawal: amount < 0")
-
         #ty to see if account exists, if so update balancem, if not raise an exception error
         try:
-            currentBal=self.balance[accountType]
-            newBal=currentBal-amount
+            self.acct[accountType].withdraw(amount)
         except:
             raise Exception('Account {} for {} does not exists'.format(accountType.name,self.owner))
 
-        if newBal<0: raise Exception("Not enough funds")
-
-        #ty to see if account exists, if so update balancem, if not raise an exception error
-        try:
-            self.balance[accountType]=newBal
-        except:
-            raise Exception('Account {} for {} does not exists'.format(accountType.name,self.owner))
 
     def __str__(self):
         #create a string that provides the owners name and each account type as well as corresponding balance. Return that string.
         vals='Owner Name: {}\n'.format(self.owner)
-        for i in self.balance:
-            vals+='Account type: {} -- Balance: {} \n'.format(i.name,self.balance[i])
+        for i in self.acct:
+            vals+='Account type: {} -- Balance: {} \n'.format(i.name,len(self.acct[i]))
         return vals
 
-class ATMSession():
+def ATMSession(bankUser):
 
-    def __init__(self,bankUser):
-        self.bu=bankUser
-    
-    def Interface(self):
+    def Interface():
+        nonlocal bankUser
+
         print('Enter Option: \n')
         print('1)Exit\n')
         print('2)Create Account\n')
@@ -128,9 +114,10 @@ class ATMSession():
             opt2 = input('')
 
         if opt2 == '1':
-            self.ac=AccountType.CHECKING
+            at=AccountType.CHECKING
         else:
-            self.ac=AccountType.SAVINGS
+            at=AccountType.SAVINGS
+    return Interface
 
         
 
@@ -138,4 +125,4 @@ class ATMSession():
 
 user=BankUser('Matheus')
 sess=ATMSession(user)
-sess.Interface()
+sess()

@@ -17,7 +17,7 @@ scoreLR=[]
 
 #initialize and compote the score for LR model since it does not depend on alpha
 LRModel=reg.LinearRegression()
-LRModel.set_params()
+
 LRModel.fit(X_train, y_train);
 score=LRModel.score(X_test,y_test)
 
