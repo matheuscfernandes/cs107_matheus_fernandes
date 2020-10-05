@@ -32,16 +32,6 @@ class BankAccount():
         return self.balance
 
 
-# acct=BankAccount('Matheus',AccountType.SAVINGS)
-# acct.deposit(1000)
-# acct.withdraw(500)
-# acct.withdraw(500)
-
-
-# print(str(acct))
-# print(len(acct))
-
-
 class BankUser():
     
     def __init__(self, owner):
@@ -89,4 +79,3 @@ class BankUser():
             vals+='Account type: {} -- Balance: {} \n'.format(i.name,self.balance[i])
         return vals
 
-        
