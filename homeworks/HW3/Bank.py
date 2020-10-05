@@ -42,22 +42,51 @@ class BankAccount():
 # print(len(acct))
 
 
-# class BankUser():
+class BankUser():
     
-#     def __init__(self, owner):
-#         # your code
+    def __init__(self, owner):
+        self.owner=owner
+        self.balance={}
     
-#     def addAccount(self, accountType):
-#         # your code
-        
-#     def getBalance(self, accountType):
-#         # your code
-        
-#     def deposit(self, accountType, amount):
-#         # your code
+    def addAccount(self, accountType):
+        try: # check if there is an existing bank account
+            self.balance[accountType]
+            print('Account: {} already exists'.format(accountType.name))
+        except:
+            self.balance[accountType] = 0
 
-#     def withdraw(self, accountType, amount):
-#         # your code
+    def getBalance(self, accountType):
+        try:
+            return self.balance[accountType]
+        except:
+            raise Exception('Account {} for {} does not exists'.format(accountType.name,self.owner))
+        
+    def deposit(self, accountType, amount):
+        if amount<0: raise Exception("Not a valid amount to deposit: amount < 0")
+        try:
+            self.balance[accountType]+=amount
+        except:
+            raise Exception('Account {} for {} does not exists'.format(accountType.name,self.owner))
 
-#     def __str__(self):
-#         # your code
+    def withdraw(self, accountType, amount):
+        if amount<0: raise Exception("Not a valid amount to withdrawal: amount < 0")
+        try:
+            currentBal=self.balance[accountType]
+            newBal=currentBal-amount
+        except:
+            raise Exception('Account {} for {} does not exists'.format(accountType.name,self.owner))
+
+        if newBal<0: raise Exception("Not enough funds")
+
+        try:
+            self.balance[accountType]=newBal
+        except:
+            raise Exception('Account {} for {} does not exists'.format(accountType.name,self.owner))
+
+    def __str__(self):
+        vals='Owner Name: {}\n'.format(self.owner)
+        for i in self.balance:
+            vals+='Account type: {} -- Balance: {} \n'.format(i.name,self.balance[i])
+        return vals
+
+        
