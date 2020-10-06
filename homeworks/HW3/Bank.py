@@ -9,7 +9,7 @@ class BankAccount():
     def __init__(self, owner, accountType: AccountType):
         self.owner=owner
         self.accountType=accountType
-        self.balance=0
+        self.balance=float(0)
 
     def withdraw(self, amount):
         #check to make sure the amount is greater than 0
@@ -31,7 +31,11 @@ class BankAccount():
         if amount<0: raise Exception("Not a valid amount to deposit: amount < 0")
         
         #update the balance with the new amount after deposit
-        self.balance+=amount
+        currentBal=self.balance
+        newBal=currentBal+amount
+
+        self.balance=newBal
+
 
     def __str__(self):
         #return string that contains the owner information and the account type
@@ -39,7 +43,7 @@ class BankAccount():
 
     def __len__(self):
         #return the float balance of the account
-        return self.balance
+        return int(self.balance)
 
 
 class BankUser():
@@ -110,6 +114,7 @@ def ATMSession(bu):
         print('4)Deposit\n')
         print('5)Withdraw \n')
         opt1 = input('')
+
         #make sure the selection is valid
         while(opt1 not in ['1','2','3','4','5']):
             print('This selection is invalid, try again.')
@@ -150,6 +155,7 @@ def ATMSession(bu):
         if opt1 == '2':
             try:
                 bu.addAccount(at)
+                print('{} account Created'.format(at.name))
             except:
                 print('{} account already exists!'.format(at.name))
 
@@ -171,17 +177,25 @@ def ATMSession(bu):
                     try:
                         if opt1 =='4':
                             bu.deposit(at,float(opt3))
-                        elif opt1 =='5':
+                            print('Owner: {} \nAccount: {}\nNew Balance: {}'.format(bu.owner,at.name,bu.getBalance(at)))
+                            break
+                    except:
+                        print('Invalid amount,try again')
+
+                    try:
+                        if opt1 =='5':
                             bu.withdraw(at,float(opt3))
-                        break
+                            print('Owner: {} \nAccount: {}\nNew Balance: {}'.format(bu.owner,at.name,bu.getBalance(at)))
+                            break
                     #if amount is not valid for the user, let them know and let them try again
                     except:
-                        if opt1=='5' and bu.getBalance(at) == 0:
-                            print("Insufficient Funds")
-                            break
+                        if (bu.getBalance(at)-int(opt3))<0:
+                            print("Insufficient Funds, {} account has Balance of {}".format(at.name,bu.getBalance(at)))
                         else:
-                            print('Invalid amount,try again')
-        #if account does not exist flag user
+                            print('Invalid amount, try again')
+
+                        
+        # if account does not exist flag user
         except:
                 print('{} account does not exist'.format(at.name))
 
