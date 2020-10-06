@@ -151,8 +151,7 @@ def ATMSession(bu):
             try:
                 bu.addAccount(at)
             except:
-                print('Account already exists!')
-        bu.getBalance(at)
+                print('{} account already exists!'.format(at.name))
 
         try:
             #check if account exists
@@ -160,9 +159,9 @@ def ATMSession(bu):
             #if checking balance, provide balance
             if opt1 =='3':
                 try:
-                    print('Owner: {} \nAccount: {}\nBalance: {}'.format(at.owner,at.name,bu.getBalance(at)))
+                    print('Owner: {} \nAccount: {}\nBalance: {}'.format(bu.owner,at.name,bu.getBalance(at)))
                 except:
-                    print('Account does not exist!')
+                    print('{} account does not exist!'.format(at.name))
             
             #if making a deposit or withdawal, query user for the amount
             if opt1 in ['4','5']:
@@ -171,16 +170,20 @@ def ATMSession(bu):
                     #see if the amount is valid for the user
                     try:
                         if opt1 =='4':
-                            bu.deposit(at,opt3)
+                            bu.deposit(at,float(opt3))
                         elif opt1 =='5':
-                            bu.withdraw(at,opt3)
+                            bu.withdraw(at,float(opt3))
                         break
                     #if amount is not valid for the user, let them know and let them try again
                     except:
-                        print('Invalid amount,try again')
+                        if opt1=='5' and bu.getBalance(at) == 0:
+                            print("Insufficient Funds")
+                            break
+                        else:
+                            print('Invalid amount,try again')
         #if account does not exist flag user
         except:
-                print('Account does not exist')
+                print('{} account does not exist'.format(at.name))
 
         Interface()
 
