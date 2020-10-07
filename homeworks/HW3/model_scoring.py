@@ -27,6 +27,7 @@ score=[]
 for model in models:
     model.fit(X_train, y_train);
     score.append(model.score(X_test,y_test))
+    print(model.params)
 
 #print the computed scores for the different models in nice format
 print('LRModel R2 Score: {}\nRRModel R2 Score: {}'.format(score[0],score[1]))
