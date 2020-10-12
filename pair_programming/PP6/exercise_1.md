@@ -1,7 +1,7 @@
 Collaborators: Matt Fernandes, Aakash Mishra, Haipeng Lin
 
 !["Computational Graph"](eval_graph.png) 
-
+\begin{equation}
 | var|  func  | Current |   Deriv               | \partial x | \partial y |
 |----|--------|---------| --------------------- | ---------- |----------- |
 | x  | pi/2   | pi/2    | $\dot{x}$           | (1)        | (0)        |
@@ -12,5 +12,5 @@ Collaborators: Matt Fernandes, Aakash Mishra, Haipeng Lin
 | v4 | v3^2   | 1/4     | $$ 2\dot{v3}v3$$      |  0         |  sqrt(3)/2 |
 | v5 | -v4    | -1/4    | $$-\dot{v4}$$         |  0         | -sqrt(3)/2 |
 | f  | exp(v5)| 0.78    | $$\dot{v5}exp(v5)$$   |  0         | -0.67      |
-
+\end{equation}
 
