@@ -2,8 +2,8 @@ Collaborators: Matt Fernandes, Aakash Mishra, Haipeng Lin
 
 !["Computational Graph"](eval_graph.png) 
 
-| var|  func  | Current |   Deriv               | \partial x | \partial y |
-|----|--------|---------| --------------------- | ---------- |----------- |
+| var|  func  | Current |   Deriv           | \partial x | \partial y |
+|----|--------|---------| ----------------- | ---------- |----------- |
 | x  | pi/2   | pi/2    | \dot{x}           | (1)        | (0)        |
 | y  | pi/3   | pi/3    | \dot{y}           |  0         | (1)        |
 | v1 | sin(x) | 1       | cos(x) \dot{x}    |  0         |  0         | 
