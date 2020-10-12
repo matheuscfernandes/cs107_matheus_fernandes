@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/lib/index.min.js">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath@0.6.5/css/texmath.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+
+</head>
+<body class="markdown-body">
+<p data-line="0" class="code-line">Collaborators: Matt Fernandes, Aakash Mishra, Haipeng Lin</p>
+<p data-line="2" class="code-line"><img src="eval_graph.png" alt="&quot;Computational Graph&quot;" class="loading" id="image-hash-700369295"></p>
+<table>
+<thead>
+<tr>
+<th>var</th>
+<th>func</th>
+<th>Current</th>
+<th>Deriv</th>
+<th>\partial x</th>
+<th>\partial y</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>pi/2</td>
+<td>pi/2</td>
+<td>\dot{x}</td>
+<td>(1)</td>
+<td>(0)</td>
+</tr>
+<tr>
+<td>y</td>
+<td>pi/3</td>
+<td>pi/3</td>
+<td>\dot{y}</td>
+<td>0</td>
+<td>(1)</td>
+</tr>
+<tr>
+<td>v1</td>
+<td>sin(x)</td>
+<td>1</td>
+<td>cos(x) \dot{x}</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>v2</td>
+<td>cos(y)</td>
+<td>1/2</td>
+<td>-sin(y) \dot{y}</td>
+<td>0</td>
+<td>-sqrt(3)/2</td>
+</tr>
+<tr>
+<td>v3</td>
+<td>v1-v2</td>
+<td>1/2</td>
+<td>\dot{v1}-\dot{v2}</td>
+<td>0</td>
+<td>sqrt(3)/2</td>
+</tr>
+<tr>
+<td>v4</td>
+<td>v3^2</td>
+<td>1/4</td>
+<td>2\dot{v3}v3</td>
+<td>0</td>
+<td>sqrt(3)/2</td>
+</tr>
+<tr>
+<td>v5</td>
+<td>-v4</td>
+<td>-1/4</td>
+<td>-\dot{v4}</td>
+<td>0</td>
+<td>-sqrt(3)/2</td>
+</tr>
+<tr>
+<td>f</td>
+<td>exp(v5)</td>
+<td>0.78</td>
+<td>\dot{v5}exp(v5)</td>
+<td>0</td>
+<td>-0.67</td>
+</tr>
+</tbody>
+</table>
+
+</body></html>
