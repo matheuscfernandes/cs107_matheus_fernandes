@@ -14,10 +14,10 @@
 \rowcolors{2}{}{lightgray}
 \begin{tabular}{ |c| c| c| c| c| c| }\hline
 	    \textbf{Trace}&\textbf{Elementary Function}&\textbf{Current Value}&\textbf{Elemendary Function Derivative}&$\nabla_x $\textbf{Value}&$\nabla_y$ \textbf{Value}\\ \hline
-	    $v_1$ & $ x$ & $ x$& $\dot{x }$& $ $& $ $ \\
-	    $v_2$ & $w_{11}v_1 $ & $ w_{11}x$& $w_{11}\dot{v}_1 $& $ $& $ $ \\
-	    $v_3$ & $ y$ & $ y$& $\dot{y} $& $ $& $ $ \\
-	    $v_4$ & $ w_{12}v_3$ & $w_{12}y $& $ w_{12}\dot{v}_3$& $ $& $ $ \\
+	    $v_1$ & $ x$ & $ x$& $\dot{x }$& $ $& $0 $ \\
+	    $v_2$ & $w_{11}v_1 $ & $ w_{11}x$& $w_{11}\dot{v}_1 $& $ $& $ 0$ \\
+	    $v_3$ & $ y$ & $ y$& $\dot{y} $& $0 $& $ $ \\
+	    $v_4$ & $ w_{12}v_3$ & $w_{12}y $& $ w_{12}\dot{v}_3$& $ 0$& $ $ \\
 	    $v_5$ & $v_2+v_4 $ & $w_{11}x+w_{12}y $& $ \dot{v}_2+\dot{v}_4$& $ $& $ $ \\
 	    $v_6$ & $z(v_5) $ & $z(w_{11}x+w_{12}y ) $& $ z'(v_5)\dot{v}_5$& $ $& $ $ \\
 	    $v_7$ & $ w_{\text{out,1}}v_6 $ & $w_{\text{out,1}} z(w_{11}x+w_{12}y ) $& $ w_{\text{out,1}}\dot{v}_6$& $ $& $ $ \\
