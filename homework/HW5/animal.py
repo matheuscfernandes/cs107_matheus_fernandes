@@ -47,7 +47,12 @@ dog = transform(dog, 'cat')
 print(vars(dog))
 print(dog.species)
 
-#TESTING CHANGING TO INVALID VERSION
-dog = transform(dog, 'catdoggo')
+# #TESTING CHANGING USING . VERSION
+dog.species = 'elf'
+print(vars(dog))
+print(dog.species)
+
+# #TESTING CHANGING TO INVALID VERSION
+dog.species = 'TheThing'
 print(vars(dog))
 print(dog.species)
