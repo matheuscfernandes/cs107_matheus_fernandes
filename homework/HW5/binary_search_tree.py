@@ -44,3 +44,5 @@ greektoroman.put('Athena',    'Minerva')
 greektoroman.put('Eros',      'Cupid')
 greektoroman.put('Aphrodite', 'Venus')
 greektoroman.get('Eros')
+
+print(greektoroman)
