@@ -18,7 +18,7 @@ class Animal:
 
     def __init__(self, name, species):
         self.name = name
-        self.species = species
+        self._species = species
 
     def __repr__(self):
         return f'{self.name} ({self._species})'
