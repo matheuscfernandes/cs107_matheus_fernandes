@@ -32,17 +32,7 @@ class LinkedList:
         return LinkedList(self._head, self._tail.append(val))
 
     def for_each(self, fun):
-        ll=Nil()
-        ll.append(self.for_each(fun(self._tail)))
-        
-#         while True:
-#             try:
-#                 print(fun(tail[0]))
-#                 ll.append(fun(tail[0]))
-#                 tail=tail._tail
-#             except:
-#                 break
-        return ll
+        return LinkedList(fun(self._head),self._tail.for_each(fun))
 
     def summation(self):
         return self._head + self._tail.summation() if self._tail else self._head
