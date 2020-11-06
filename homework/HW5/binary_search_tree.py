@@ -7,7 +7,7 @@ class BSTNode:
         self.size = 1
 
     def __str__(self):
-        return f'BSTNode({self.key}, {self.val})' + \
+        return f'BSTNode({self.key}, {self.val}) (size = {self.size})' + \
                '\n|\n|-(L)->' + '\n|      '.join(str(self.left ).split('\n')) + \
                '\n|\n|-(R)->' + '\n|      '.join(str(self.right).split('\n'))
 
@@ -36,6 +36,7 @@ class BSTTable:
                 node.right = self._put(node.right,key,val)
             else:
                 node.val=val
+            node.size = self._size(node.left) + self._size(node.right) + 1 
             return node
 
         except:
