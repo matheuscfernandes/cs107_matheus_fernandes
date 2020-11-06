@@ -29,10 +29,30 @@ class BSTTable:
         return self._get(self._root, key)
 
     def _put(self, node, key, val):
-        pass # TODO
+        try:
+            if node.key > key:
+                node.left = self._put(node.left,key,val)
+            elif node.key < key:
+                node.right = self._put(node.right,key,val)
+            else:
+                node.val=val
+            return node
+
+        except:
+            return BSTNode(key,val)
 
     def _get(self, node, key):
-        pass # TODO
+        try:
+            if node.key > key:
+                val = self._get(node.left,key)
+            elif node.key < key:
+                val = self._get(node.right,key)
+            else: 
+                val = node.val
+                print(val)
+            return val
+        except:
+            raise KeyError(f"Nothing found for {key} key.")
 
     @staticmethod
     def _size(node):
@@ -46,3 +66,5 @@ greektoroman.put('Aphrodite', 'Venus')
 greektoroman.get('Eros')
 
 print(greektoroman)
+
+
