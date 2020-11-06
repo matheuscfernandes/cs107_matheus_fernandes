@@ -73,24 +73,24 @@ class Nil():
         return Nil()
 
         
+if __name__ == "__main__":
+    ll=Nil()
+    ll=ll.prepend(0).prepend(-1).prepend(-2)
+    ll=ll.append(1).append(2).append(3)
+    print(ll)
+    # print(dir(ll))
 
-ll=Nil()
-ll=ll.prepend(0).prepend(-1).prepend(-2)
-ll=ll.append(1).append(2).append(3)
-print(ll)
-print(dir(ll))
-
-l = Nil().prepend(1).prepend(2).prepend(3).prepend(4)
-def square(x):
-    return x**2
-print(l)
-print(l.for_each(square))
+    l = Nil().prepend(1).prepend(2).prepend(3).prepend(4)
+    def square(x):
+        return x**2
+    print(l)
+    print(l.for_each(square))
 
 
-l = Nil().prepend(1).prepend(2).prepend(3).prepend(4)
-def smaller(a, b): # our "combine" function
-    return a if a < b else b
-print(l)
-print(l.reduce_right(smaller))
+    l = Nil().prepend(1).prepend(2).prepend(3).prepend(4)
+    def smaller(a, b): # our "combine" function
+        return a if a < b else b
+    print(l)
+    print(l.reduce_right(smaller))
 
 
