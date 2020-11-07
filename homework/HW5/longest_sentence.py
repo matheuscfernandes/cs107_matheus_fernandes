@@ -1,4 +1,7 @@
 from linked_list import *
+import sys 
+sys.setrecursionlimit(10**6) 
+
 
 def get_list_of_sentences(chapter1='swansway-chapter1.txt'):
     def to_sentences(p):
