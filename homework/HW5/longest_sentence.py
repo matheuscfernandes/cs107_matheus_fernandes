@@ -17,8 +17,9 @@ def get_list_of_sentences(chapter1='swansway-chapter1.txt'):
  
 def longest_sentence():
     list_of_sentences = get_list_of_sentences()
-    def smaller(a, b): # our "combine" function
-        return a if a < b else b
-    list_of_sentences.reduce_right(smaller)
+    count=list_of_sentences.for_each(lambda x: len(x))
+    ct=count.reduce_right(lambda x,y: x if x>y else y)
+    return ct
 
-longest_sentence()
+if __name__ == "__main__":
+    print(longest_sentence())
