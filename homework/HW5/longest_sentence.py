@@ -1,4 +1,4 @@
-from linked_list import *
+from linked_list import LinkedList, Nil
 import sys 
 sys.setrecursionlimit(10**6) 
 
@@ -20,7 +20,7 @@ def get_list_of_sentences(chapter1='swansway-chapter1.txt'):
  
 def longest_sentence():
     list_of_sentences = get_list_of_sentences()
-    count=list_of_sentences.for_each(lambda x: len(x))
+    count=list_of_sentences.for_each(lambda x: len(x.split(' ')))
     ct=count.reduce_right(lambda x,y: x if x>y else y)
     return ct
 

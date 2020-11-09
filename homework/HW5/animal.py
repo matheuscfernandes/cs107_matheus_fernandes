@@ -32,27 +32,31 @@ class Animal:
         assert into in Animal.valid_species, Exception(f'invalid species: {into}')
         self._species = into    
 
-#EXISTING CLIENT CODE
-def transform(animal, into):
-    animal.species = into
-    return animal
 
-#TESTING ORIGINAL
-dog = Animal('Fido', 'dog')
-print(vars(dog))
-print(dog.species)
 
-#TESTING CHANGING TO VALID VERSION
-dog = transform(dog, 'cat')
-print(vars(dog))
-print(dog.species)
+if __name__ == "__main__":
+    #EXISTING CLIENT CODE
+    def transform(animal, into):
+        animal.species = into
+        return animal
+        
+    #TESTING ORIGINAL
+    dog = Animal('Fido', 'dog')
+    print(vars(dog))
+    print(dog.species)
 
-# #TESTING CHANGING USING . VERSION
-dog.species = 'elf'
-print(vars(dog))
-print(dog.species)
+    #TESTING CHANGING TO VALID VERSION
+    dog = transform(dog, 'cat')
+    print(vars(dog))
+    print(dog.species)
 
-# #TESTING CHANGING TO INVALID VERSION
-dog.species = 'TheThing'
-print(vars(dog))
-print(dog.species)
+    # #TESTING CHANGING USING . VERSION
+    dog.species = 'elf'
+    print(vars(dog))
+    print(dog.species)
+
+    # #TESTING CHANGING TO INVALID VERSION
+    dog.species = 'TheThing'
+    print(vars(dog))
+    print(dog.species)
+

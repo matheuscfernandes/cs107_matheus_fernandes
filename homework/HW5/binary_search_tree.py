@@ -50,7 +50,6 @@ class BSTTable:
                 val = self._get(node.right,key)
             else: 
                 val = node.val
-                print(val)
             return val
         except:
             raise KeyError(f"Nothing found for {key} key.")
@@ -59,13 +58,19 @@ class BSTTable:
     def _size(node):
         return node.size if node else 0
 
+if __name__ == "__main__":
+        
+    greektoroman = BSTTable()
+    greektoroman.put('Athena',    'Minerva')
+    greektoroman.put('Eros',      'Cupid')
+    greektoroman.put('Aphrodite', 'Venus')
+    # greektoroman.put('Test', 'testval')
 
-greektoroman = BSTTable()
-greektoroman.put('Athena',    'Minerva')
-greektoroman.put('Eros',      'Cupid')
-greektoroman.put('Aphrodite', 'Venus')
-greektoroman.get('Eros')
+    greektoroman.get('Eros')
 
-print(greektoroman)
+    print(greektoroman.get('Test'))
+
+
+    print(greektoroman)
 
 
