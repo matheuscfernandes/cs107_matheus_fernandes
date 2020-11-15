@@ -54,27 +54,51 @@ class BSTTable:
         return node.size if node else 0
 
     def _removemin(self,node):
-        try:
-            self._removemin(node.left)
-        except:
-            node = None
+        if node.left == None:
+            return node.right
+        node.left = self._removemin(node.left)
+        node.size = 1 + self._size(node.left) + self._size(node.right)
+        return node
 
+    def remove(self, key):
+        self._root = self._remove(self._root, key)
 
-        # if val == None:
-        #     val = node.val
-        # if val < node.val:
-        #     val = node.val
-        
-
-        
-
+    def _remove(self, node, key):
+        if node == None:
+            return None
+        if key < node.key:
+            node.left = self._remove(node.left,key)
+        elif key> node.key:
+            node.right = self._remove(node.right,key)
+        else:
+            if node.right == None:
+                return node.left
+            if node.left == None:
+                return node.right
+            
+            node_t = node
+            node - min
 
 if __name__ == "__main__":
     t = BSTTable()
-    t.put(0, 'a')
+    t.put(5, 'd')
     t.put(1, 'b')
     t.put(2, 'c')
-    t.put(5, 'd')
+    t.put(0, 'a')
+
     print(t._root)
 
-    # print(t._removemin(t._root))
+    print(t._removemin(t._root))
+
+
+    t = BSTTable()
+    t.put(5, 'a')
+    t.put(1, 'b')
+    t.put(2, 'c')
+    t.put(0, 'd')
+
+    print(t._remove(t._remove(t._root, 5), 1))
+
+    print(t._remove(t._root, 10))
+
+
