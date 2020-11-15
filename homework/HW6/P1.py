@@ -70,16 +70,25 @@ class BSTTable:
             node.left = self._remove(node.left,key)
         elif key> node.key:
             node.right = self._remove(node.right,key)
-        else:
+        elif key == node.key:
             if node.right == None:
                 return node.left
             if node.left == None:
                 return node.right
             
             node_t = node
-            node - min
+            node.right = self._removemin(node_t.right)
+            node.left = node_t.left
+        
+        else:
+            raise KeyError('The {key} key does not belong in this tree.')
+
+        node.size = 1 + self._size(node.left) + self._size(node.right)
+        return node
+
 
 if __name__ == "__main__":
+    print('\n----------------PART A-------------\n')
     t = BSTTable()
     t.put(5, 'd')
     t.put(1, 'b')
@@ -90,12 +99,14 @@ if __name__ == "__main__":
 
     print(t._removemin(t._root))
 
+    print('\n----------------PART B-------------\n')
 
     t = BSTTable()
     t.put(5, 'a')
     t.put(1, 'b')
     t.put(2, 'c')
     t.put(0, 'd')
+    print(t._remove(t._root, 5))
 
     print(t._remove(t._remove(t._root, 5), 1))
 
