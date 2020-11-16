@@ -70,46 +70,105 @@ class BSTTable:
             node.left = self._remove(node.left,key)
         elif key> node.key:
             node.right = self._remove(node.right,key)
-        elif key == node.key:
-            if node.right == None:
-                return node.left
-            if node.left == None:
-                return node.right
-            
-            node_t = node
-            node.right = self._removemin(node_t.right)
-            node.left = node_t.left
-        
-        else:
-            raise KeyError('The {key} key does not belong in this tree.')
+        else: 
+            if key == node.key:
+                print(node.key)
+                if node.right == None:
+                    return node.left
+                if node.left == None:
+                    return node.right
+                
+                node_t = node
+                node.right = self._removemin(node_t.right)
+                node.left = node_t.left
+                node.size = 1 + self._size(node.left) + self._size(node.right)
 
-        node.size = 1 + self._size(node.left) + self._size(node.right)
+            else:
+                raise KeyError(f'The \'{key}\' key does not belong in this BST.')
+
         return node
 
 
 if __name__ == "__main__":
-    print('\n----------------PART A-------------\n')
+    
+    print('\n----------------PART A DEMO---------------\n')
+    
     t = BSTTable()
     t.put(5, 'd')
     t.put(1, 'b')
     t.put(2, 'c')
     t.put(0, 'a')
 
-    print(t._root)
+    # print(t._root)
+    print('-----------------')
 
-    print(t._removemin(t._root))
+    # print(t._removemin(t._root))
 
-    print('\n----------------PART B-------------\n')
+    print('\n----------------PART B DEMO---------------\n')
 
     t = BSTTable()
     t.put(5, 'a')
     t.put(1, 'b')
     t.put(2, 'c')
     t.put(0, 'd')
-    print(t._remove(t._root, 5))
+    # print(t._remove(t._root, 5))
+    # print('-----------------')
+    # print(t._remove(t._remove(t._root, 5), 1))
+    # print('-----------------')
 
-    print(t._remove(t._remove(t._root, 5), 1))
-
-    print(t._remove(t._root, 10))
+    # print(t._remove(t._root, 10))
 
 
+from enum import Enum
+
+class DFSTraversalTypes(Enum):
+    PREORDER = 1
+    INORDER = 2
+    POSTORDER = 3
+
+class DFSTraversal():
+    def __init__(self, tree: BSTTable, traversalType: DFSTraversalTypes):
+        self.tree=tree
+        self.traversalType=traversalType
+
+        if self.traversalType == DFSTraversalTypes.INORDER:
+            self.inorder(self.tree)
+        elif self.traversalType == DFSTraversalTypes.PREORDER:
+            self.preorder(self.tree)
+        elif self.traversalType == DFSTraversalTypes.POSTORDER:
+            self.postorder(self.tree)
+        else:
+            raise Exception('unknown traversal type') 
+
+    def __iter__(self):
+        for i in self.values:
+            ext = BSTNode(i[0],i[1])
+            yield ext
+
+    def __next__(self):
+        try:
+            val= self.values[self.index]
+
+    def inorder(self, bst: BSTTable):
+        # TODO: implement
+        return
+
+    def preorder(self, bst: BSTTable):
+        # TODO: implement
+        return
+
+    def postorder(self, bst: BSTTable):
+        # TODO: implement
+        return
+
+if __name__ == "__main__":
+    
+    print('\n----------------PART C DEMO ---------------\n')
+
+    input_array = [(4, 'a'), (9, 'c'), (2, 'f'), (3, 'z'), (11, 'i'), (8, 'r')]
+    bst = BSTTable()
+    for key, val in input_array:
+        bst.put(key, val)
+    traversal = DFSTraversal(bst, DFSTraversalTypes.INORDER)
+    for node in traversal:
+        print(str(node.key) + ', ' + node.val)
