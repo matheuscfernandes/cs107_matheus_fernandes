@@ -60,8 +60,14 @@ class BSTTable:
         node.size = 1 + self._size(node.left) + self._size(node.right)
         return node
 
+    def _min(self,node):
+        if node.left == None:
+            return node
+        node.left = self._min(node.left)
+
     def remove(self, key):
         self._root = self._remove(self._root, key)
+    
 
     def _remove(self, node, key):
         if node == None:
@@ -70,21 +76,20 @@ class BSTTable:
             node.left = self._remove(node.left,key)
         elif key> node.key:
             node.right = self._remove(node.right,key)
-        else: 
-            if key == node.key:
-                print(node.key)
-                if node.right == None:
-                    return node.left
-                if node.left == None:
-                    return node.right
-                
-                node_t = node
-                node.right = self._removemin(node_t.right)
-                node.left = node_t.left
-                node.size = 1 + self._size(node.left) + self._size(node.right)
+        if key == node.key:
+            if node.right == None:
+                return node.left
+            if node.left == None:
+                return node.right
+            
+            node_t=node
+            node=self._min(node.right)
+            node.right = self._removemin(node_t.right)
+            node.left = node_t.left
+            node.size = 1 + self._size(node.left) + self._size(node.right)
 
-            else:
-                raise KeyError(f'The \'{key}\' key does not belong in this BST.')
+        else:
+            raise KeyError(f'The \'{key}\' key does not belong in this BST.')
 
         return node
 
@@ -111,12 +116,12 @@ if __name__ == "__main__":
     t.put(1, 'b')
     t.put(2, 'c')
     t.put(0, 'd')
-    # print(t._remove(t._root, 5))
-    # print('-----------------')
-    # print(t._remove(t._remove(t._root, 5), 1))
-    # print('-----------------')
+    print(t._remove(t._root, 5))
+    print('-----------------')
+    print(t._remove(t._remove(t._root, 5), 1))
+    print('-----------------')
 
-    # print(t._remove(t._root, 10))
+    print(t._remove(t._root, 10))
 
 
 from enum import Enum
