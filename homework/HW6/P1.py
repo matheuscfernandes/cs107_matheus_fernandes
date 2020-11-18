@@ -10,7 +10,6 @@ class BSTNode:
                '\n|\n|-(L)->' + '\n|      '.join(str(self.left ).split('\n')) + \
                '\n|\n|-(R)->' + '\n|      '.join(str(self.right).split('\n'))
 
-
 class BSTTable:
     def __init__(self):
         self._root = None
@@ -104,10 +103,10 @@ if __name__ == "__main__":
     t.put(2, 'c')
     t.put(0, 'a')
 
-    # print(t._root)
+    print(t._root)
     print('-----------------')
 
-    # print(t._removemin(t._root))
+    print(t._removemin(t._root))
 
     print('\n----------------PART B DEMO---------------\n')
 
@@ -120,8 +119,10 @@ if __name__ == "__main__":
     print('-----------------')
     print(t._remove(t._remove(t._root, 5), 1))
     print('-----------------')
-
-    print(t._remove(t._root, 10))
+    try:
+        print(t._remove(t._root, 10))
+    except Exception as exc:
+        print(exc)
 
 
 from enum import Enum
@@ -135,6 +136,8 @@ class DFSTraversal():
     def __init__(self, tree: BSTTable, traversalType: DFSTraversalTypes):
         self.tree=tree
         self.traversalType=traversalType
+        self.values = []
+        self.index = 0
 
         if self.traversalType == DFSTraversalTypes.INORDER:
             self.inorder(self.tree)
@@ -146,25 +149,48 @@ class DFSTraversal():
             raise Exception('unknown traversal type') 
 
     def __iter__(self):
-        for i in self.values:
-            ext = BSTNode(i[0],i[1])
-            yield ext
-
+        return self
+        
     def __next__(self):
         try:
-            val= self.values[self.index]
+            self.index+=1
+            return self.values[self.index-1]
+
+        except IndexError:
+            raise StopIteration()
 
     def inorder(self, bst: BSTTable):
-        # TODO: implement
-        return
-
+        self._inorder(bst._root)
+        
+    def _inorder(self, node):
+        if node == None:
+            return None
+        self._inorder(node.left)
+        self.values.append(node)
+        self._inorder(node.right)
+        
     def preorder(self, bst: BSTTable):
-        # TODO: implement
-        return
+        self._preorder(bst._root)
+
+    def _preorder(self,node):
+        if node == None:
+            return None
+        self.values.append(node)
+        self._preorder(node.left)
+        self._preoder(node.right)
 
     def postorder(self, bst: BSTTable):
-        # TODO: implement
-        return
+        self._postorder(bst._root)
+
+    def _postorder(self, node):
+        if node == None:
+            return None
+        self._postorder(node.left)
+        self._postoder(node.right)
+        self.values.append(node)    
+
+
+
 
 if __name__ == "__main__":
     
