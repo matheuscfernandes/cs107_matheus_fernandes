@@ -2,9 +2,10 @@ from math import floor
 from typing import List
 
 class Heap:
-    def __init__(self, array: List[int]) -> None:
+    def __init__(self, array: List[int], htype='min') -> None:
         self.elements = array
         self.size = len(array) # Number of elements in heap
+        self.htype=htype
         self.build_heap()
 
     # index of left child of the node at idx
@@ -54,12 +55,28 @@ class Heap:
         return self.size
 
     def heapify(self, idx: int) -> None:
-        # TODO: implement
-        pass
+        if self.htype=='min':      
+            if self.left(idx)<self.size and (self.elements[idx]>self.elements[self.left(idx)]):
+                    self.swap(idx,self.left(idx))
+                    self.heapify(self.left(idx))
+            if self.right(idx)<self.size and (self.elements[idx]>self.elements[self.right(idx)]):
+                    self.swap(idx,self.right(idx))
+                    self.heapify(self.right(idx))
+
+        elif self.htype=='max':
+            if self.left(idx)<self.size and (self.elements[idx]<self.elements[self.left(idx)]):
+                    self.swap(idx,self.left(idx))
+                    self.heapify(self.left(idx))
+            if self.right(idx)<self.size and (self.elements[idx]<self.elements[self.right(idx)]):
+                    self.swap(idx,self.right(idx))
+                    self.heapify(self.right(idx))
 
     def build_heap(self) -> None:
-        # TODO: implement
-        pass
+        for idx in range((self.size-1)//2,-1,-1):
+            self.heapify(idx)
 
-h = Heap([-1,0,0,15,23,1,2,3]) # The heap tree will be built during initialization
-print(h)
+
+
+if __name__ == "__main__":
+    h = Heap([-1,0,0,15,23,1,2,3],'max') # The heap tree will be built during initialization
+    print(h)
