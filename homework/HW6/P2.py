@@ -2,10 +2,10 @@ from math import floor
 from typing import List
 
 class Heap:
-    def __init__(self, array: List[int], htype='min') -> None:
+    def __init__(self, array: List[int]) -> None:
         self.elements = array
         self.size = len(array) # Number of elements in heap
-        self.htype=htype
+        self.htype='min'
         self.build_heap()
 
     # index of left child of the node at idx
@@ -74,9 +74,63 @@ class Heap:
     def build_heap(self) -> None:
         for idx in range((self.size-1)//2,-1,-1):
             self.heapify(idx)
+    
+    def heappush(self, key: int) -> None:
+        self.elements.append(key)
+    
+        self.size+=1
+        current = self.size-1
+        if self.htype == 'min':
+            while self.elements[current] < self.elements[self.parent(current)]:
+                if current<1:
+                    return
+                self.swap(self.parent(current),current)
+                current = self.parent(current)
+
+        if self.htype == 'max':
+            while self.elements[current] > self.elements[self.parent(current)]:
+                if current<1:
+                    return
+                self.swap(self.parent(current),current)
+                current = self.parent(current)
 
 
+    def heappop(self) -> int:
+        popped = self.elements[0]
+        self.elements[0]=self.elements[self.size-1]
+        self.size-=1
+        self.heapify(0)
+        return popped
+
+
+class MinHeap(Heap):
+    def __init__(self, array: List[int]):
+        self.elements = array
+        self.size = len(array) # Number of elements in heap
+        self.htype='min'
+        self.build_heap()
+
+class MaxHeap(Heap):
+    def __init__(self, array: List[int]):
+        self.elements = array
+        self.size = len(array) # Number of elements in heap
+        self.htype='max'
+        self.build_heap()
 
 if __name__ == "__main__":
-    h = Heap([-1,0,0,15,23,1,2,3],'max') # The heap tree will be built during initialization
+    h = MaxHeap([-1,0,0,15,23,1,2,3]) # The heap tree will be built during initialization
     print(h)
+    h.heappush(-10)
+    h.heappush(-11)
+    h.heappush(5)
+    h.heappush(25)
+    print(h)
+    print(h.heappop())
+    print(h.heappop())
+    print(h.heappop())
+    print(h.heappop())
+    print(h.heappop())
+
+    print(h)
+
+
