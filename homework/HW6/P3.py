@@ -60,7 +60,7 @@ def timeit(ns=(10, 20, 50, 100, 200, 500), pqclass=PriorityQueue, n_average=5):
     return elapsed
 
 
-class NaivePriorityQueue2(PriorityQueue):
+class NaivePriorityQueue(PriorityQueue):
     def put(self,val):
         if len(self.elements) >= self.max_size:
             raise IndexError('Full priority queue')
@@ -90,7 +90,7 @@ class NaivePriorityQueue2(PriorityQueue):
                 j=i
         return j        
 
-class NaivePriorityQueue(PriorityQueue):
+class NaivePriorityQueueFast(PriorityQueue):
     def put(self,val):
         if len(self.elements) >= self.max_size:
             raise IndexError('Full priority queue')
@@ -118,6 +118,7 @@ class HeapPriorityQueue(PriorityQueue):
         if self.elements.size >= self.max_size:
             raise IndexError('Full priority queue')
         self.elements.heappush(val)
+
     def get(self):
         if self.elements.size==0:
             raise IndexError('Empty priority queue')
