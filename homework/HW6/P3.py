@@ -136,10 +136,21 @@ if __name__ == "__main__":
 
     q.put(1)
     q.put(2)
+    try:
+        q.put(3)
+    except Exception as exc:
+        print(exc)
     print(q.peek())
 
     print(q.get())
 
     print(q.get())
 
-    print(q.get())
+    try:
+        print(q.peek())
+    except Exception as exc:
+        print(exc)
+    try:
+        print(q.get())
+    except Exception as exc:
+        print(exc)

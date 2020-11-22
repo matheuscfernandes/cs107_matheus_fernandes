@@ -189,9 +189,6 @@ class DFSTraversal():
         self._postoder(node.right)
         self.values.append(node)    
 
-
-
-
 if __name__ == "__main__":
     
     print('\n----------------PART C DEMO ---------------\n')
