@@ -37,8 +37,7 @@ def mergesortedlists(lists, pqclass=PriorityQueue):
 
     return merged
 
-
-def generatelists(n, length=20, dictionary_path='../data/words.txt'):
+def generatelists(n, length=20, dictionary_path='data/words.txt'):
     with open(dictionary_path, 'r') as f:
         words = [w.strip() for w in f.readlines()]
     lists = []
