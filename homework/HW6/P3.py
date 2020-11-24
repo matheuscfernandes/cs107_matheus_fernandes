@@ -1,6 +1,7 @@
 from random import sample
 from time import time
 from P2 import MinHeap
+import numpy as np
 import heapq as h
 
 class PriorityQueue:
@@ -60,7 +61,7 @@ def timeit(ns=(10, 20, 50, 100, 200, 500), pqclass=PriorityQueue, n_average=5):
     return elapsed
 
 
-class NaivePriorityQueue(PriorityQueue):
+class NaivePriorityQueueSlow(PriorityQueue):
     def put(self,val):
         if len(self.elements) >= self.max_size:
             raise IndexError('Full priority queue')
@@ -89,6 +90,24 @@ class NaivePriorityQueue(PriorityQueue):
             if i<j:
                 j=i
         return j        
+
+class NaivePriorityQueue(PriorityQueue):
+    def put(self,val):
+        if len(self.elements) >= self.max_size:
+            raise IndexError('Full priority queue')
+        self.elements.append(val)
+
+    def get(self):
+        if len(self.elements)==0:
+            raise IndexError('Empty priority queue')
+        val=min(self.elements)
+        self.elements.remove(val)
+        return val
+
+    def peek(self):
+        if len(self.elements)==0:
+            raise IndexError('Empty priority queue')
+        return min(self.elements)
 
 class NaivePriorityQueueFast(PriorityQueue):
     def put(self,val):
