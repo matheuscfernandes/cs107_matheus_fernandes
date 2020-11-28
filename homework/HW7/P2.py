@@ -98,6 +98,8 @@ save_to_database(3,'L1 penalty model', db, penalized_model,X_train,X_test,y_trai
 
 
 # PART C
+#### still to do __________________________________
+query = "SELECT *  FROM contributors WHERE amount > 0"
 
 
 test_model = LogisticRegression(solver='liblinear')
