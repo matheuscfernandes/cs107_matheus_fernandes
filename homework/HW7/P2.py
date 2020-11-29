@@ -15,22 +15,22 @@ cursor.execute("DROP TABLE IF EXISTS model_results")
 
 
 cursor.execute('''CREATE TABLE model_params (
-               id INTEGER PRIMARY KEY NOT NULL, 
+               id, 
                desc TEXT, 
                param_name TEXT, 
                value REAL)''')
 
 cursor.execute('''CREATE TABLE model_coefs (
-               id INTEGER PRIMARY KEY NOT NULL, 
+               id, 
                desc TEXT, 
                feature_name TEXT, 
-               value REAL)''')
+               value FLOAT)''')
 
 cursor.execute('''CREATE TABLE model_results (
-               id INTEGER PRIMARY KEY NOT NULL, 
+               id, 
                desc TEXT, 
-               train_score REAL, 
-               test_score REAL)''')
+               train_score FLOAT, 
+               test_score FLOAT)''')
 
 db.commit() # Commit changes to the database
 
@@ -47,21 +47,18 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 def save_to_database(model_id,model_desc,db,model,X_train,X_test,y_train,y_test):
     train_score=model.score(X_train,y_train)
     test_score=model.score(X_test,y_test)
-    param_names=','.join(X_train.keys())
-
-    params=str(model.get_params())
-
-    values=str({'coef':str(model.coef_),'intercept':str(model.intercept_)})
-    feature_names=str(['coef','intercept'])
+    model_coefs = np.append(model.intercept_,model.coef_)
+    param_names=['Intercept']+list(X_train.keys())
 
     cursor = db.cursor()
-
-    cursor.execute('''INSERT INTO model_params 
-                    (id, desc, param_name, value)
-                    VALUES (?, ?, ?, ?)''', (int(model_id), model_desc, param_names, params))
-    cursor.execute('''INSERT INTO model_coefs 
-                    (id, desc, feature_name, value)
-                    VALUES (?, ?, ?, ?)''', (int(model_id), model_desc, feature_names, values))
+    for key,values in model.get_params().items():
+        cursor.execute('''INSERT INTO model_params 
+                        (id, desc, param_name, value)
+                        VALUES (?, ?, ?, ?)''', (int(model_id), model_desc, key, values))
+    for param, coefs in zip(param_names,model_coefs):
+        cursor.execute('''INSERT INTO model_coefs 
+                        (id, desc, feature_name, value)
+                        VALUES (?, ?, ?, ?)''', (int(model_id), model_desc, param, coefs))
     cursor.execute('''INSERT INTO model_results 
                     (id, desc, train_score, test_score)
                     VALUES (?, ?, ?, ?)''', (int(model_id), model_desc, train_score, test_score))
@@ -99,8 +96,20 @@ save_to_database(3,'L1 penalty model', db, penalized_model,X_train,X_test,y_trai
 
 # PART C
 #### still to do __________________________________
-query = "SELECT *  FROM contributors WHERE amount > 0"
+query = "SELECT id, desc ,MAX(test_score) FROM model_results"
+cursor.execute(query)
+best = cursor.fetchall()
+id = best[0][0]
+desc = best[0][1]
+best_score = best[0][2]
 
+print(f'Best model is #{id} ({desc}) with test score {best_score}')
+
+cursor.execute(f"SELECT feature_name, value FROM model_coefs WHERE id={id}")
+coefs = np.array(cursor.fetchall())
+
+intercept=np.array(coefs[0,1],dtype=float)
+coef=np.array(coefs[1:,1],dtype=float)
 
 test_model = LogisticRegression(solver='liblinear')
 test_model.fit(X_train, y_train)
